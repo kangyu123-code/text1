@@ -6,13 +6,30 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 class Fang extends Model
 {
-    //
+    //修改器
+    public function setFangConfigAttribute($value){
+    	$this->attributes["fang_config"]=implode(',', $value);
+    }
+    public function setFangPicAttribute($value){
+    	$this->attributes["fang_pic"]=trim($value,'#');
+    }
+
+    protected $guarded=[];
     use SoftDeletes;
     //属于关系
     public function owner(){
-    	return $this->belongsTo(FangOwner::class,'fang_owner');
+    return $this->belongsTo(FangOwner::class,'fang_owner');
 
     }
+    public function attr(){
+    	return $this->belongsTo(Fangattr::class,'fang_direction');
+
+    }
+     public function atts(){
+    	return $this->belongsTo(Fangattr::class,'fang_rent_class');
+
+    }
+
     //添加和修改关联数据
     public function relation()
     {

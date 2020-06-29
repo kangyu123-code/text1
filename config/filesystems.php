@@ -60,6 +60,10 @@ return [
             'driver' => 'local',
             'root' => public_path('uploads/fangOwner'),
         ],
+        'fang' => [
+            'driver' => 'local',
+            'root' => public_path('uploads/fang'),
+        ],
 
 
         'public' => [

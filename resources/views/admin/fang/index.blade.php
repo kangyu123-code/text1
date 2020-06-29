@@ -42,11 +42,12 @@
 					<tr class="text-c">
 						<td>{{$item['id']}}</td>
 						<td>{{$item['fang_name']}}</td>
+						<td>{{$item['fang_xiaoqu']}}</td>
 						<td>{{$item['fang_addr']}}</td>
-						<td>{{$item['fang_rent_class']}}</td>
-						<td>{{$item['fang_owner']}}</td>
+						<td>{{$item['atts']['name']}}</td>
+						<td>{{$item['owner']['name']}}</td>
 						<td>{{$item['fang_rent']}}</td>
-						<td>{{$item['fang_direction']}}</td>
+						<td>{{$item['attr']['name']}}</td>
 						<td style="display: flex;justify-content: space-between;height: 58px;align-items: center;">
 		<a href="javascript:;" onclick="admin_edit('编辑','{{route('admin.fang.edit',['id'=>$item['id']])}}','1','600','400')" class="btn btn-success size-MINI" style="text-decoration:none">编辑
 	</a> 

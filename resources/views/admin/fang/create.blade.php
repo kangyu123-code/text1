@@ -28,12 +28,12 @@ position: relative;
 <body>
 <article class="cl pd-20" id="app">
 	@include('admin.common.validate')
-	<form class="form form-horizontal" id="form-admin-add" action="{{route('admin.fang.store')}}" method="post">
+	<form class="form form-horizontal" id="#fang-add" action="{{route('admin.fang.store')}}" method="post">
 		@csrf
 <div class="row cl">
 	<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>房源名称：</label>
 	<div class="formControls col-xs-8 col-sm-9">
-		<input type="text" class="input-text" value="" placeholder="" id="adminName" name="fangname" >
+		<input type="text" class="input-text" value="" placeholder="" id="adminName" name="fang_name" >
 	</div>
 </div>
 
@@ -48,7 +48,7 @@ position: relative;
 	<label class="form-label col-xs-5 col-sm-3"><span class="c-red">*</span>小区地址：</label>
 	<div class="formControls col-xs-5 col-sm-6">
 		 <span class="select-box" style="width:100px;">
-		<select class="select" name="pid" size="1" onchange="select_city(this,'fang_city')">
+		<select class="select" name="fang_province" size="1" onchange="select_city(this,'fang_city','市')">
 		<option value="0">请选择省</option>			
 					@foreach($data['citedata'] as $item)
 	<option value="{{$item->id}}">{{$item->name}}</option>
@@ -57,7 +57,7 @@ position: relative;
 		</span>
 
 		<span class="select-box" style="width:100px;">
-				<select class="select" id="fang_city" name="fang_city" size="1" onchange="select_city(this,'fang_region')">
+				<select class="select" id="fang_city" name="fang_city" size="1" onchange="select_city(this,'fang_region','地区')">
 					<option value="0">==市==</option>
 				</select>
 		</span>
@@ -255,11 +255,13 @@ position: relative;
 <!--/请在上方写此页面业务相关的脚本-->
 </body>
    <script type="text/javascript">
+
    // 下拉选择
-   function select_city(obj,selectname){
+   function select_city(obj,selectname,name){
    		let value=$(obj).val();
    		$.get("{{route('admin.fang.city')}}",{id:value}).then(jsonarr=>{
-   			let htmls=`<option value="0">市</option>`;
+   			$('#fang_region').html('');
+   			let htmls=`<option value="0">${name}</option>`;
    			jsonarr.map(item=>{
    				var {id,name}=item;
    				htmls+=`<option value="${id}">${name}</option>`;
@@ -292,9 +294,9 @@ uploader.on( 'uploadSuccess', function( file ,ret) {
     // $('#icon').val(src);
     // $('#pic').css('opacity',1);
     // $('#pic').attr('src',src);
-    let val=$('#pc').val();
+    let val=$('#fang_pic').val();
     let tmp=val+'#'+ret.url;
-    $('#pc').val(tmp);
+    $('#fang_pic').val(tmp);
     let imglist=$('#imglist');
     let html=`<div>
     		<img width="40" height="40" src="${ret.url}"/>
@@ -308,9 +310,8 @@ let url="{{route('admin.fang.delfile')}}?file="+picurl;
 	fetch(url);
 	//删除当前电机的图片
 	$(obj).parent('div').remove();
-	let kangyu=$('#pc').val().replace(`#${picurl}`,'');
-	alert(kangyu);
-	$('#pc').val(kangyu);
+	let kangyu=$('#fang_pic').val().replace(`#${picurl}`,'');
+	$('#fang_pic').val(kangyu);
 }
    </script>
 </html>
