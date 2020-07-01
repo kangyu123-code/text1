@@ -19,7 +19,7 @@ class CreateFangsTable extends Migration
     $table->string('fang_xiaoqu',100)->default('')->comment('房源小区名称');
     $table->unsignedInteger('fang_province')->default(0)->comment('省');
     $table->unsignedInteger('fang_city')->default(0)->comment('市');
-    $table->unsignedInteger('fang_region')->default(0)->comment('区');
+    $table->unsignedInteger('fang_reg')->default(0)->comment('区');
     $table->string('fang_addr',200)->default('')->comment('房源地址');
     $table->unsignedInteger('fang_direction')->default(0)->comment('房源朝向');
     $table->unsignedInteger('fang_build_area')->default(0)->comment('房源面积');

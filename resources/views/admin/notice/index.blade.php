@@ -5,7 +5,7 @@
 	@include('admin.common.msg')
 	<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页
 		<span class="c-gray en">&gt;</span>
-		房源管理
+		房东管理
 		<span class="c-gray en">&gt;</span>
 		 </nav>
 	<div class="Hui-article">
@@ -15,26 +15,23 @@
 			</div>
 			<div class="cl pd-5 bg-1 bk-gray mt-20">
 				<span class="l"> 
-					<a href="javascript:;" onclick="admin_add('添加房源','{{route("admin.fang.create")}}','800','500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加房源属性</a>
-<a href="#" class="btn btn-success radius"><i class="Hui-iconfont">&#xe600;</i> 导出excel</a>
+					<a href="javascript:;" onclick="admin_add('添加房东','{{route("admin.notice.create")}}','800','500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加房东属性</a>
+
 				</span>
-				<span class="r">
+				
 			</div>
 			<table class="table table-border table-bordered table-bg">
 				<thead>
 					<tr>
-						<th scope="col" colspan="14">房源列表</th>
+						<th scope="col" colspan="14">房东列表</th>
 					</tr>
 					<tr class="text-c">
 						<th width="40">ID</th>
-						<th width="40">房源名称</th>
-						<th width="150">小区名称</th>
-						<th width="150">小区地址</th>
-						<th width="60">租赁方式</th>
-						<th width="40">业主</th>
-						<th width="150">租金</th>
-						<th width="40">朝向</th>
+						<th width="40">房东</th>
+						<th width="69">租客</th>
+						<th width="150">时间</th>
 						<th width="40">状态</th>
+						<th width="150">消息内容</th>
 						<th width="100">操作</th>
 					</tr>
 				</thead>
@@ -42,26 +39,17 @@
 					@foreach($data as $item)
 					<tr class="text-c">
 						<td>{{$item['id']}}</td>
-						<td>{{$item['fang_name']}}</td>
-						<td>{{$item['fang_xiaoqu']}}</td>
-						<td>{{$item['fang_addr']}}</td>
-						<td>{{$item['atts']['name']}}</td>
-						<td>{{$item['owner']['name']}}</td>
-						<td>{{$item['fang_rent']}}</td>
-						<td>{{$item['attr']['name']}}</td>
-						<td>
-						@if($item->fang_status==0)
-						<span onclick="change(this,{{$item->id}},1)" class="label label-success radius">未租</span>
-						@else
-<span onclick="change(this,{{$item->id}},0)" class="label label-default radius">已租</span>
-						@endif	
-						</td>
+						<td>{{$item['fangowner_id']}}</td>
+						<td>{{$item['renting_id']}}</td>
+						<td>{{$item['dtime']}}</td>
+						<td>{{$item['status']}}</td>
+						<td>{{$item['cnt']}}</td>
 						<td style="display: flex;justify-content: space-between;height: 58px;align-items: center;">
-		<a href="javascript:;" onclick="admin_edit('编辑','{{route('admin.fang.edit',['id'=>$item['id']])}}','1','800','600')" class="btn btn-success size-MINI" style="text-decoration:none">编辑
+		<a href="javascript:;" onclick="admin_edit('编辑','{{route('admin.notice.edit',['id'=>$item['id']])}}','1','600','400')" class="btn btn-success size-MINI" style="text-decoration:none">编辑
 	</a> 
-		<a href="javascript:;" onclick="admin_edit('查看照片','{{route('admin.fang.show',['id'=>$item['id']])}}','1','800','500')" class="btn btn-warning radius size-MINI" style="text-decoration:none">查看照片</a>
+		
 
-	<a onclick="del(this,'{{route('admin.fang.destroy',['id'=>$item['id']])}}')"class="size-MINI 	btn btn-danger radius" style="text-decoration:none">删除</a>
+	<a onclick="del(this,'{{route('admin.notice.destroy',['id'=>$item['id']])}}')"class="size-MINI 	btn btn-danger radius" style="text-decoration:none">删除</a>
 	</td>
 					</tr>
 					@endforeach
@@ -74,24 +62,6 @@
 @endsection
 @section('js')
 <script type="text/javascript">
-function change(obj,id,status)
-{
-	let url="{{route('admin.fang.change')}}";
-	$.get(url,{
-		id,
-		status
-	}).then(ret=>{
-		if(status==0){
-		$(obj).removeClass('label-default').addClass('label-success').html('未租');
-
-		}else{
-$(obj).removeClass('label-success').addClass('label-default').html('已租');
-		}
-	
-		alert(ret.msg);
-	})
-
-}
 
 function sou(){
 	let val=$('#lishiji').val();
@@ -129,7 +99,7 @@ function del(obj,url){
 							location.reload();
 			});
 			}else{
-				layer.alert('你没有房源 ',{icon:2});
+				layer.alert('你没有房东 ',{icon:2});
 			}
 
 		})

@@ -51,13 +51,19 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 
 	Route::resource('fangOwner','FangOwnerController',['as'=>'admin']);
 	//房源管理
+	//生成es索引的路由
+	Route::get('fang/es/init','FangController@esinit')->name('admin.fang.esinit');;
 	//获取市或县
 	Route::get('fang/city','FangController@city')->name('admin.fang.city');
-	//删除
+	//改变房源状态
+	Route::get('fang/change','FangController@change')->name('admin.fang.change');
+	//删除文件
 	Route::get('fangOwner/delfile','FangOwnerController@delfile')->name('admin.fang.delfile');
 	//上传
 	Route::post('fang/upfile','FangController@upfile')->name('admin.fang.upfile');
 	Route::resource('fang','FangController',['as'=>'admin']);
+	//预约列表
+	Route::resource('notice','NoticeController',['as'=>'admin']);
 	});
 	//邮件发送
 	// Route::get('user/email',function(){

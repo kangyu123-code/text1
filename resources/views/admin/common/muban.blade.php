@@ -97,6 +97,7 @@
 <script type="text/javascript" src="/admin/lib/My97DatePicker/4.8/WdatePicker.js"></script> 
 <script type="text/javascript" src="/admin/lib/datatables/1.10.15/jquery.dataTables.min.js"></script>
 
+<script type="text/javascript" src="/js/echarts.min.js"></script>
 <!--/_footer /作为公共模版分离出去-->
 
 <!--请在下方写此页面业务相关的脚本-->

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 class Fang extends Model
 {
-    //修改器
+    // 修改器
     public function setFangConfigAttribute($value){
     	$this->attributes["fang_config"]=implode(',', $value);
     }
@@ -29,6 +29,9 @@ class Fang extends Model
     	return $this->belongsTo(Fangattr::class,'fang_rent_class');
 
     }
+ 		public function cites(){
+    	return $this->belongsTo(Fangattr::class,'fang_province');
+	    }
 
     //添加和修改关联数据
     public function relation()
@@ -57,4 +60,32 @@ class Fang extends Model
         	'fang_config_data'=> $fang_config_data
         ];
     }
+    //统计已出租和未出租数据
+public function fangshuju()
+{
+	$total=self::count();
+	$wei=self::where('fang_status',0)->count();
+	$yi=$total-$wei;
+	return [
+		'total'=>$total,
+		'wei'=>$wei,
+		'yi'=>$yi
+	];
+}
+//房源图片的处理
+public function getImagesAttribute()
+{
+	$arr=explode('#',$this->attributes['fang_pic']);
+	$html="";
+	if(!empty($arr)){
+	foreach ($arr as $k => $v) {
+	$html.="<div><img width='40' height='40' src='$v'/>
+    		<strong class='kangyu' href='$v'>X</strong>
+    </div>";
+	}
+	}
+	return $html;
+}
+
+
 }
